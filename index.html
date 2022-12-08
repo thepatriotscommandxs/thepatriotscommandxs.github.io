@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src ="splitter.js" type="text/javascript"></script>
-</head>
-    <body>
-      <div id="text"></div>
-    </body>
-</html>
+<body>
+
+<h2>My First Web Page</h2>
+<p>My first paragraph.</p>
+
+<p id="demo"></p>
+
+
+<script>
+    fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/data/20th-century-african-leaders.txt')
+    .then(response => response.text())
+    .then(text => {
+        let sentences = text.split("']\n");
+        const rand = Math.round(Math.random() * sentences.length-1);
+        document.getElementById('demo').innerHTML = sentences[rand];
+        
+});
+    
+</script>
+</body>
+</html> 
