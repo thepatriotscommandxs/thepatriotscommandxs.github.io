@@ -12,7 +12,7 @@ https.get('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscom
   res.on('end', () => {
     const sentences = data.split("']\n");
     const rand = Math.round(Math.random() * sentences.length);
-    document.getElementById("text").innerText=sentences[rand];
+    Document.getElementById("text").innerText=sentences[rand];
     console.log(`${sentences[rand]}`);
     
   });
