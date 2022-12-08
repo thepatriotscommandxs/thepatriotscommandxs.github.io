@@ -1,95 +1,35 @@
-function initRun() {
-  fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/data/20th-century-african-leaders.txt')
-      .then(response => response.text())
-      .then(text => {
+function getTitles() {
+  fetch("https://github.com/thepatriotscommandxs/thepatriotscommandxs.github.io/tree/main/data")
+      .then((result) => { return result.text(); })
+      .then((text) => { 
+      text = text.replaceAll ("\r", "").replaceAll ("\n", "");
       
-          let full = text.split("']\n");
-          const rand = Math.abs(Math.round(Math.random() * full.length-2));
+      full = text.split('-open Link--primary" title="');
+      //document.getElementById('Logger').innerHTML = full
 
-       
-
-
-          full.join('').split('');
-
-          function checkStr() {
-          if(full[rand]=="undefined") {
-            const rand = Math.abs(Math.round(Math.random() * full.length-2));
-            rand = abs(rand);
-
-            checkStr()
-            
-            }
-            
-            else {       
-
-
-
-            let AnsHint = full[rand].split("', '");
-            console.log("", AnsHint)
-            let Ans = AnsHint[0].replace("['","");
-
-            let ArrayAns = Ans.split(" ");
-            console.log("", ArrayAns)
-
-            let Hint = AnsHint[1].replace(/;/gi,"-")
-            console.log("", Hint)
-
-            let sentences = Hint.split(". ")
-              
-              
-              CurrentHint += sentences[count]+ "."
-  
-  
-              //document.getElementById('DUMMY').innerHTML = count;
-              console.log("", count)
-           //document.getElementById('Prompt').innerHTML = ArrayAns+" ====>> "+CurrentHint;
-           console.log("", CurrentHint)
-
-              
-              
-              
-              
-              
-              
-            }
-      }
+        
+      full.splice(0,1)
+        
+        for(i = full.length-1;i--;) {
+          const reg = /data-turbo-frame="repo-content-turbo-frame"+.*/gi
+          if(full[i]!=undefined) {
           
-          checkStr()
+          full[i] = full[i].replace(reg,"")
+
+          full[i] = full[i].replace('"',"")
           
-          
-          
-  
-          
-          
-          
-          
-      });
-  
-  
-  }
-  
-  let CurrentHint = '';
-  
-  let count = 0;
-  
-  
-  
-  function addCount(){
-    count+=1
-  
-  
-    document.getElementById('DUMMY').innerHTML = count;
-    
-    
-    CurrentHint += sentence[count] + "."
-    
-    
-    
-    document.getElementById('Prompt').innerHTML = ArrayAns+"   "+CurrentHint;
-  
-  
-  }
-  
-      
-  initRun()
-      
+          }
+        }  
+        const results = full.filter(element => {
+          if (Object.keys(element).length !== 0) {
+            return true;
+          }
+        
+          return false;
+        });
+
+        const rand2 = Math.round(Math.random() * full.length);
+        console.log(results)
+        //window.webSite = full[rand2]
+      });}
+      getTitles()
