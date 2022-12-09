@@ -52,8 +52,7 @@
                   window.CurrentHint =+ sentences[window.count];
 
 
-                  document.getElementById('DUMMY').innerHTML = count;
-              	document.getElementById('Prompt').innerHTML = ArrayAns+"  =====>>"+sentences[count];
+              	document.getElementById('Prompt').innerHTML = sentences[count];
 
 
 
@@ -99,9 +98,7 @@
         if(count < window.sentences.length-1) {
       window.count+=1
 
-            window.Guess = document.getElementById('inputForm').value
-            
-
+            window.Guess = document.getElementById('inputForm').value.split("")
 
       document.getElementById('inputForm').value = ""
       document.getElementById('Logger').innerHTML = ""
@@ -118,7 +115,8 @@
       }
 
       function inAnswer() {
-                for (let i = 0; i < window.Guess.length; i++) {
+        for (let i = 0; i < window.Guess.length; i++) {
+
           // Check if the character at the same index in the control word is the same as the user input
           if (window.Guess[i] === ArrayAns[i]) {
             // If so, add 1 to the score
@@ -127,7 +125,6 @@
 
         }
         window.similarity = Math.round((window.score / window.Guess.length) * 10);
-        document.getElementById('correct').innerHTML = window.score
 
         if(similarity>=7) {
           window.wasCorrect = "True"
@@ -139,14 +136,12 @@
 
       function run() {
 
-        window.Guess = document.getElementById('inputForm').value.split('')
 
 
         inAnswer()
 
         if(window.wasCorrect=="True") {
           document.getElementById('Prompt').innerHTML = "Congrats!"
-          document.getElementById('DUMMY').innerHTML = ""
           return ""
         }
 
@@ -154,7 +149,6 @@
         
         document.getElementById('Prompt').innerHTML = document.getElementById('Prompt').innerHTML + ". "+ window.sentences[window.count];
 
-        document.getElementById('DUMMY').innerHTML = window.count;
 
         window.CurrentHint += window.sentences[window.count] +"."
 
