@@ -7,7 +7,7 @@
       <label id="guess" for="guess">Answer:</label>
       <input type="text" id="inputForm" name="guess" />
       <div>
-        <button onclick="addCount()" type="button">submit</button>
+        <button onclick="addCount()" id="button" type="button">submit</button>
       </div>
     </form>
 
@@ -17,50 +17,16 @@
 
     <script>
         let CurrentHint = '';
-        
-        function getTitles() {
-            fetch("https://github.com/thepatriotscommandxs/thepatriotscommandxs.github.io/tree/main/data")
-                .then((result) => { return result.text(); document.getElementById('Logger').innerHTML = result.text() })
-                .then((content) => { 
-                text = text.replaceAll ("\r", "").replaceAll ("\n", "");
-                
-                full = text.split('-open Link--primary" title="');
-        
-                  
-                delete full[0]
-                  
-                  for(i = full.length-1;i--;) {
-                    const reg = /data-turbo-frame="repo-content-turbo-frame"+.*/gi
-                    if(full[i]!=undefined) {
-                    
-                    full[i] = full[i].replace(reg,"")
-
-                    full[i] = full[i].replace('"',"")
-                    
-                    }
-                  } 
-
-                  const rand2 = Math.round(Math.random() * full.length);
-
-                  window.webSite = full[rand2]
-                }).catch(e => document.getElementById('Logger').innerHTML = e/* console.log(e))*/)}
-
-
-
-            
-            
-
-
-                getTitles()
 
       function initRun() {
 
-
-        fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/data/'+window.webSite)
+        
+        fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/total.txt')
 
         .then(response => response.text())
           .then(text => {
-              let full = text.split("']\n");
+              let full = text.split("']\r\n");
+
               const rand = Math.round(Math.random() * full.length);
 
 
@@ -108,8 +74,20 @@
 
 
       }
+      var textBox = document.getElementById("inputForm");
+      var button = document.getElementById('button')
 
+        textBox.addEventListener("keyup", function (event) {
 
+           // Checking if key pressed is ENTER or not
+           // if the key pressed is ENTER
+           // click listener on button is called
+           if (event.keyCode == 13) {
+               button.click();
+           }
+      }
+
+      );
       window.count = 0;
       function addCount(){
 
@@ -145,10 +123,6 @@
         document.getElementById('DUMMY').innerHTML = window.count;
 
         window.CurrentHint += window.sentences[window.count] +"."
-
-
-
-
           }
 
         function runFinal(){

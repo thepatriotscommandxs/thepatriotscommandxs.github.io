@@ -16,36 +16,14 @@
     <p id="Logger"></p>
 
     <script>
-        function getTitles() {
-            fetch("https://github.com/thepatriotscommandxs/thepatriotscommandxs.github.io/tree/main/data")
-                .then((result) => { return result.text(); })
-                .then((content) => { 
-                text = text.replaceAll ("\r", "").replaceAll ("\n", "");
-                
-                full = text.split('-open Link--primary" title="');
-                document.getElementById('Logger').innerHTML = full
+      fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/data/20th-century-paintings.txt')
 
-                  
-                delete full[0]
-                  
-                  for(i = full.length-1;i--;) {
-                    const reg = /data-turbo-frame="repo-content-turbo-frame"+.*/gi
-                    if(full[i]!=undefined) {
-                    
-                    full[i] = full[i].replace(reg,"")
-
-                    full[i] = full[i].replace('"',"")
-                    
-                    }
-                  } 
-
-                  const rand2 = Math.round(Math.random() * full.length);
-
-                  window.webSite = full[rand2]
-                });}
-                getTitles()
-
-
+.then(response => response.text())
+  .then(text => document.getElementById('Logger').innerHTML = text)
+    
+    
+    
+    myC()
     </script>
   </body>
 </html>
