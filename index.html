@@ -2,14 +2,16 @@
 <html>
   <body>
     <h1>Scholarle</h1>
+    <div>
+    <h2 id="correct"></h2>
+  </div>
+    <label id="guess" for="guess">Answer:</label>
+    <input type="text" id="inputForm" name="guess" autocomplete="off" />
 
-    <form id="myForm" autocomplete="off" method="post">
-      <label id="guess" for="guess">Answer:</label>
-      <input type="text" id="inputForm" name="guess" />
       <div>
-        <button onclick="addCount()" id="button" type="button">submit</button>
+    <button onclick="addCount()" id="button" type="button">Submit Guess</button>
       </div>
-    </form>
+    
 
     <p id="Prompt"></p>
     <p id="DUMMY"></p>
@@ -17,7 +19,7 @@
 
     <script>
         let CurrentHint = '';
-
+        window.score = 0;
       function initRun() {
 
         
@@ -42,7 +44,7 @@
 
               	window.AnsHint = full[rand].split("', '");
               	window.Ans = AnsHint[0].replace("['","");
-              	window.ArrayAns = Ans.split(" ");
+              	window.ArrayAns = Ans.split('');
                   window.Hint = AnsHint[1].replace(/;/gi,"-")
                   window.sentences = Hint.split(". ")
 
@@ -77,17 +79,18 @@
       var textBox = document.getElementById("inputForm");
       var button = document.getElementById('button')
 
+      
         textBox.addEventListener("keyup", function (event) {
-
            // Checking if key pressed is ENTER or not
            // if the key pressed is ENTER
            // click listener on button is called
            if (event.keyCode == 13) {
-               addCount()
+            
+               button.click()
            }
-      }
+     }
 
-      );
+        );
       window.count = 0;
       function addCount(){
 
@@ -114,15 +117,50 @@
         }
       }
 
+      function inAnswer() {
+                for (let i = 0; i < window.Guess.length; i++) {
+          // Check if the character at the same index in the control word is the same as the user input
+          if (window.Guess[i] === ArrayAns[i]) {
+            // If so, add 1 to the score
+            window.score += 1;
+          }
 
+        }
+        window.similarity = Math.round((window.score / window.Guess.length) * 10);
+        document.getElementById('correct').innerHTML = window.score
+
+        if(similarity>=7) {
+          window.wasCorrect = "True"
+          document.getElementById('correct').innerHTML = "CORRECT!!"
+
+        }
+
+              }
 
       function run() {
 
+        window.Guess = document.getElementById('inputForm').value.split('')
+
+
+        inAnswer()
+
+        if(window.wasCorrect=="True") {
+          document.getElementById('Prompt').innerHTML = "Congrats!"
+          document.getElementById('DUMMY').innerHTML = ""
+          return ""
+        }
+
+
+        
         document.getElementById('Prompt').innerHTML = document.getElementById('Prompt').innerHTML + ". "+ window.sentences[window.count];
 
         document.getElementById('DUMMY').innerHTML = window.count;
 
         window.CurrentHint += window.sentences[window.count] +"."
+
+
+
+
           }
 
         function runFinal(){
