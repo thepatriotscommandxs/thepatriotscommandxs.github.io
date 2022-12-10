@@ -3,167 +3,186 @@
   <body>
     <h1>Scholarle</h1>
     <div>
-    <h2 id="correct"></h2>
-  </div>
+      <h2 id="correct"></h2>
+    </div>
     <label id="guess" for="guess">Answer:</label>
     <input type="text" id="inputForm" name="guess" autocomplete="off" />
 
-      <div>
-    <button onclick="addCount()" id="button" type="button">Submit Guess</button>
-      </div>
-    
+    <div>
+      <button onclick="addCount()" id="button" type="button">
+        Submit Guess
+      </button>
+    </div>
 
     <p id="Prompt"></p>
     <p id="DUMMY"></p>
     <p id="Logger"></p>
 
     <script>
-        let CurrentHint = '';
-        window.score = 0;
-      function initRun() {
+         window.score = 0;
 
-        
-        fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/total.txt')
-
-        .then(response => response.text())
-          .then(text => {
-              let full = text.split("']\r\n");
-
-              const rand = Math.round(Math.random() * full.length);
+         function initRun() {
 
 
+         	fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/total.txt')
 
-              function checkStr() {
-              if(full[rand]=="undefined") {
-                const rand = Math.round(Math.random() * full.length);
-                checkStr()
+         		.then(response => response.text())
+         		.then(text => {
+         			let full = text.split("']\r\n");
 
-                }
-
-                else {
-
-              	window.AnsHint = full[rand].split("', '");
-              	window.Ans = AnsHint[0].replace("['","");
-              	window.ArrayAns = Ans.split('');
-                  window.Hint = AnsHint[1].replace(/;/gi,"-")
-                  window.sentences = Hint.split(". ")
-
-
-                  window.CurrentHint =+ sentences[window.count];
-
-
-              	document.getElementById('Prompt').innerHTML = sentences[count];
+         			const rand = Math.round(Math.random() * full.length);
 
 
 
+         			function checkStr() {
+         				if (full[rand] == "undefined") {
+         					const rand = Math.round(Math.random() * full.length);
+         					checkStr()
+
+         				} else {
+
+         					window.AnsHint = full[rand].split("', '");
+         					window.Ans = AnsHint[0].replace("['", "");
+         					window.ArrayAns = Ans.split(' ');
+         					window.Hint = AnsHint[1].replace(/;/gi, "-")                  
+                  window.prepower = Hint.split("||")[0]
+                  window.postpower = Hint.split("||")[1]
+
+         					window.sentences = postpower.split(". ")
 
 
 
-                }
-      		}
+         					document.getElementById('Prompt').innerHTML = prepower;
+         					document.getElementById('correct').innerHTML = ArrayAns;
 
-              checkStr()
+                  
 
 
+
+
+         				}
+         			}
+
+         			checkStr()
 
 
 
 
 
 
-          });
 
 
-      }
-      var textBox = document.getElementById("inputForm");
-      var button = document.getElementById('button')
+         		});
 
-      
-        textBox.addEventListener("keyup", function (event) {
-           // Checking if key pressed is ENTER or not
-           // if the key pressed is ENTER
-           // click listener on button is called
-           if (event.keyCode == 13) {
+
+         }
+         var textBox = document.getElementById("inputForm");
+         var button = document.getElementById('button')
+
+
+         textBox.addEventListener("keyup", function(event) {
+         		// Checking if key pressed is ENTER or not
+         		// if the key pressed is ENTER
+         		// click listener on button is called
+         		if (event.keyCode == 13) {
+
+         			button.click()
+         		}
+         	}
+
+         );
+         window.count = 0;
+
+         function addCount() {
+
+
+         	if (document.getElementById('inputForm').value != "") {
+         		if (count < window.sentences.length - 1) {
+         			window.count += 1
+
+         			window.Guess = document.getElementById('inputForm').value
+
+         			document.getElementById('inputForm').value = ""
+         			document.getElementById('Logger').innerHTML = ""
+
+
+
+         			run()
+
+         		} else if(count == window.sentences.length - 1) {
+
+              finalAnswer()
+            }
             
-               button.click()
-           }
-     }
-
-        );
-      window.count = 0;
-      function addCount(){
-
-
-        if(document.getElementById('inputForm').value != ""){
-        if(count < window.sentences.length-1) {
-      window.count+=1
-
-            window.Guess = document.getElementById('inputForm').value.split("")
-
-      document.getElementById('inputForm').value = ""
-      document.getElementById('Logger').innerHTML = ""
-
             
+            
+            else {
+              document.getElementById('DUMMY').innerHTML = "Final Guess!";
+         		}
+         	} else {
+         		document.getElementById('Logger').innerHTML = "Please Input Text before Submit"
+         	}
+         }
 
-      run()
 
-        } else {
-            runFinal()
-        }} else {
-            document.getElementById('Logger').innerHTML = "Please Input Text before Submit"
-        }
-      }
-
-      function inAnswer() {
-        for (let i = 0; i < window.Guess.length; i++) {
-
-          // Check if the character at the same index in the control word is the same as the user input
-          if (window.Guess[i] === ArrayAns[i]) {
-            // If so, add 1 to the score
-            window.score += 1;
+         function inAnswer() {
+         	for (let i = 0; i < window.ArrayAns.length; i++) {
+            for(let j=0;j<window.Guess.split(" ").length; j++) {
+            // 
+            if(window.Guess.toLowerCase() == window.ArrayAns[i].toLowerCase()) {window.wasCorrect = "True"}
+            else if(window.Guess.split(" ")[j].toLowerCase() ==  window.ArrayAns[i].toLowerCase()) {window.wasCorrect = "True"}
+            // 
+          }
           }
 
-        }
-        window.similarity = Math.round((window.score / window.Guess.length) * 10);
+         }
 
-        if(similarity>=7) {
-          window.wasCorrect = "True"
-          document.getElementById('correct').innerHTML = "CORRECT!!"
+         function finalAnswer() {
+          inAnswer()
 
-        }
-
-              }
-
-      function run() {
-
-
-
-        inAnswer()
-
-        if(window.wasCorrect=="True") {
-          document.getElementById('Prompt').innerHTML = "Congrats!"
-          return ""
-        }
-
-
-        
-        document.getElementById('Prompt').innerHTML = document.getElementById('Prompt').innerHTML + ". "+ window.sentences[window.count];
-
-
-        window.CurrentHint += window.sentences[window.count] +"."
-
-
+         	if (window.wasCorrect == "True") {
+         		document.getElementById('Prompt').innerHTML = "Congrats!"
+         	} else {
+            document.getElementById('DUMMY').innerHTML = "Incorrect"
+            document.getElementById('Logger').innerHTML = "The Answer is ==>" + window.Ans
 
 
           }
 
-        function runFinal(){
-            document.getElementById('DUMMY').innerHTML = "Final Guess!";
-
-        }
 
 
-      initRun()
+
+
+         }
+
+         function run() {
+
+
+
+         	inAnswer()
+
+         	if (window.wasCorrect == "True") {
+         		document.getElementById('Prompt').innerHTML = "Congrats!"
+         		return ""
+         	}
+
+
+          if(window.count==1){
+            document.getElementById('Prompt').innerHTML = document.getElementById('Prompt').innerHTML  + window.sentences[0] + ". "+ window.sentences[window.count];
+
+          } else {
+            document.getElementById('Prompt').innerHTML = document.getElementById('Prompt').innerHTML + ". " + window.sentences[window.count];
+
+          }
+
+
+
+
+
+         }
+
+
+         initRun()
     </script>
   </body>
 </html>
