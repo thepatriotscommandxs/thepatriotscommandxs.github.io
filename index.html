@@ -22,12 +22,7 @@
     </div>
     <script>
       window.precount = 0;
-          try{  
-            window.score = parseInt(localStorage.getItem("score"))
 
-          } catch(e) {            
-            console.log(e)
-          }
          function initRun() {
 
 
@@ -72,7 +67,8 @@
          					document.getElementById('Prompt').innerHTML = presentences[0];
 
 
-                  if(localStorage.getItem('score') !== null) {                  
+                  if(localStorage.getItem('score') !== null) {
+                    window.score = parseInt(localStorage.getItem("score"))                  
                     document.getElementById('score').innerHTML = "Your Score: "+window.score;
                   } else {
 
