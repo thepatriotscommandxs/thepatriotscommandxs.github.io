@@ -26,9 +26,6 @@
             window.score = parseInt(localStorage.getItem("score"))
 
           } catch(e) {            
-            window.score = 0
-
-            localStorage.setItem("score",window.score+"")
             console.log(e)
           }
          function initRun() {
@@ -76,7 +73,16 @@
 
                   document.getElementById('score').innerHTML = "Your Score: "+window.score;
 
-                  
+                  if(document.getElementById('score').innerHTML == "Your Score: NaN") {
+                    
+                      window.score = 0
+
+                      localStorage.setItem("score",window.score+"")
+                      document.getElementById('score').innerHTML = "Your Score: "+window.score;
+
+
+
+                  }
 
 
 
@@ -196,17 +202,16 @@
 
             if(window.count<=1){
               window.score += 15;
-              localStorage.setItem("score",window.score+"")
-              document.getElementById("button").disabled = true
 
             } else {
               window.score += 10;
 
-              localStorage.setItem("score",window.score+"")
-              document.getElementById("button").disabled = true
 
 
             }
+            
+            localStorage.setItem("score",window.score+"")
+              document.getElementById("button").disabled = true
             
 
             document.getElementById('score').innerHTML = "Your Score: "+window.score
@@ -237,18 +242,17 @@
 
              if(window.count<=1){
               window.score += 15;
-              localStorage.setItem("score",window.score+"")
-              
-              document.getElementById("button").disabled = true
 
             } else {
               window.score += 10;
 
-              localStorage.setItem("score",window.score+"")
-              
-              document.getElementById("button").disabled = true
 
             }
+
+
+            localStorage.setItem("score",window.score+"")
+              
+              document.getElementById("button").disabled = true
             document.getElementById('score').innerHTML = "Your Score: "+window.score
 
          	} else {
