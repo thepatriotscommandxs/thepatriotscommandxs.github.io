@@ -123,7 +123,11 @@
 
             document.getElementById('inputForm').value = ""
             document.getElementById('Logger').innerHTML = ""
+            
+            if(count == window.sentences.length - 2) {
+              document.getElementById('DUMMY').innerHTML = "Final Guess!";
 
+            }
 
             if(window.precount < window.presentences.length) {
               window.precount += 1
@@ -154,14 +158,18 @@
 
 
          function inAnswer() {
-          if(window.Guess.toLowerCase() != "the") {
+          if(window.Guess.toLowerCase() == "the") {
             window.Guess = "XXXXXXXXXXX"
-          } else if(window.Guess.toLowerCase() != "as") {
+          } else if(window.Guess.toLowerCase() == "as") {
             window.Guess = "XXXXXXXXXXX"
           } 
-          else if(window.Guess.toLowerCase() != "a") {
+          else if(window.Guess.toLowerCase() == "a") {
+            window.Guess = "XXXXXXXXXXX"
+          } 
+          else if(window.Guess.toLowerCase() == "to") {
             window.Guess = "XXXXXXXXXXX"
           } else {
+
          	for (let i = 0; i < window.ArrayAns.length; i++) {
             for(let j=0;j<window.Guess.split(" ").length; j++) {
             // 
@@ -179,6 +187,7 @@
 
 
          function finalAnswer() {
+
           inAnswer()
 
          	if (window.wasCorrect == "True") {
