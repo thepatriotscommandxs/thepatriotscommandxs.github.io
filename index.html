@@ -67,11 +67,10 @@
          					document.getElementById('Prompt').innerHTML = presentences[0];
 
 
+                  
                   if(localStorage.getItem('score')) {
-                    
-                    window.score = localStorage.getItem("score")                  
-                    document.getElementById('score').innerHTML = "Your Score: 1";
-                    
+                    window.score = parseInt(localStorage.getItem("score"))                  
+                    document.getElementById('score').innerHTML = "Your Score: "+window.score;
                     
                   } else {
 
