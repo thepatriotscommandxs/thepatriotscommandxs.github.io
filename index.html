@@ -71,20 +71,17 @@
 
          					document.getElementById('Prompt').innerHTML = presentences[0];
 
-                  document.getElementById('score').innerHTML = "Your Score: "+window.score;
 
-                  if(document.getElementById('score').innerHTML == "Your Score: NaN") {
-                    
-                      window.score = 0
+                  if(localStorage.getItem('score') !== null) {                  
+                    document.getElementById('score').innerHTML = "Your Score: "+window.score;
+                  } else {
 
-                      localStorage.setItem("score",window.score+"")
-                      document.getElementById('score').innerHTML = "Your Score: "+window.score;
+                    window.score = 0
 
-
+                    localStorage.setItem("score",window.score+"")
+                    document.getElementById('score').innerHTML = "Your Score: "+window.score;
 
                   }
-
-
 
 
          				}
