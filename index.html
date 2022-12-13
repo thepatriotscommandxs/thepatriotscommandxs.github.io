@@ -12,6 +12,9 @@
       <button onclick="addCount()" id="button" type="button">
         Submit Guess
       </button>
+      <button onclick="reset()" id="reset", type="button">
+        Next Question
+      </button>
     </div>
 
     <p id="Prompt"></p>
@@ -20,10 +23,17 @@
     <div>
       <h3 id="score"></h3>
     </div>
-    <script>
-      window.precount = 0;
 
+
+    <script>
+
+var textBox = document.getElementById("inputForm");
+            var button = document.getElementById('button')
          function initRun() {
+          window.count = 0;
+
+          window.precount = 0;
+          document.getElementById("reset").style.visibility= "hidden"; 
 
 
          	fetch('https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/total.txt')
@@ -98,8 +108,7 @@
 
 
          }
-         var textBox = document.getElementById("inputForm");
-         var button = document.getElementById('button')
+
 
 
          textBox.addEventListener("keyup", function(event) {
@@ -113,7 +122,6 @@
          	}
 
          );
-         window.count = 0;
 
          function addCount() {
 
@@ -205,8 +213,6 @@
 
             }
             
-            localStorage.setItem("score",window.score+"")
-              document.getElementById("button").disabled = true
             
 
             document.getElementById('score').innerHTML = "Your Score: "+window.score
@@ -221,6 +227,10 @@
 
 
           }
+          
+          localStorage.setItem("score",window.score+"")
+          document.getElementById("button").disabled = true
+          document.getElementById("reset").style.visibility= "visible" 
 
 
 
@@ -247,8 +257,10 @@
 
             localStorage.setItem("score",window.score+"")
               
-              document.getElementById("button").disabled = true
+            document.getElementById("button").disabled = true
             document.getElementById('score').innerHTML = "Your Score: "+window.score
+
+            document.getElementById("reset").style.visibility= "visible" 
 
          	} else {
           
@@ -273,8 +285,19 @@
 
 
         }
+        
          }
+         function reset() {
+          document.getElementById("button").disabled = false 
+          document.getElementById("Logger").innerHTML = "" 
+          document.getElementById("DUMMY").innerHTML = "" 
+          document.getElementById("score").innerHTML = ""  
+          document.getElementById('inputForm').value = ""
 
+          initRun()
+          
+
+         }
 
          initRun()
     </script>
