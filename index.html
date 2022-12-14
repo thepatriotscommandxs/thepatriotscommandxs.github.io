@@ -70,7 +70,7 @@ button.RES {
 
     <div>
       <button class="ADD" onclick="addCount()"  id="button" type="button" style="text-align:center" >
-        <img src="submit.png" height="100" width="400">
+        <img src="https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/submit.png" height="100" width="400">
       </button>
       <br> <br> <br>
 
@@ -319,6 +319,7 @@ var textBox = document.getElementById("inputForm");
             }
             
             
+            document.getElementById('Logger').innerHTML = "The Answer is ==> " + window.Ans
 
             document.getElementById('score').innerHTML = "Your Score: "+window.score
 
@@ -363,6 +364,8 @@ var textBox = document.getElementById("inputForm");
             localStorage.setItem("score",window.score+"")
               
             document.getElementById("button").disabled = true
+            document.getElementById('Logger').innerHTML = "The Answer is ==> " + window.Ans
+
             document.getElementById('score').innerHTML = "Your Score: "+window.score
 
             document.getElementById("reset").style.visibility= "visible" 
