@@ -157,9 +157,6 @@ var textBox = document.getElementById("inputForm");
             
             
             
-            else {
-              document.getElementById('DUMMY').innerHTML = "Final Guess!";
-         		}
          	} else {
          		document.getElementById('Logger').innerHTML = "Please Input Text before Submit"
          	}
@@ -177,7 +174,11 @@ var textBox = document.getElementById("inputForm");
           } 
           else if(window.Guess.toLowerCase() == "to") {
             window.Guess = "XXXXXXXXXXX"
-          } else {
+          } else if(window.Guess.length<=2) {
+          window.Guess = "XXXXXXXXXXX"
+          }
+          else {
+          window.Guess = window.Guess.replace(" ","|")
 
          	for (let i = 0; i < window.ArrayAns.length; i++) {
             for(let j=0;j<window.Guess.split(" ").length; j++) {
@@ -185,14 +186,53 @@ var textBox = document.getElementById("inputForm");
             if(window.Guess.toLowerCase() == window.ArrayAns[i].toLowerCase()) {window.wasCorrect = "True"}
             else if(window.Guess.split(" ")[j].toLowerCase() ==  window.ArrayAns[i].toLowerCase()) {window.wasCorrect = "True"}
             // 
-          }}
+
+
+
+            
+          }
+        }
+        levenshteinDistance(window.Ans.toLowerCase(),window.Guess.toLowerCase())
+        document.getElementById('Logger').innerHTML = window.alG
+         if(window.alG < 0.5) {window.wasCorrect = "True"}
 
           }
 
          }
 
 
-
+         function levenshteinDistance(a, b) {
+              // Create empty edit distance matrix for all possible modifications of
+              // substrings of a to substrings of b.
+              const distanceMatrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
+                  
+              // Fill the first row of the matrix.
+              // If this is first row then we're transforming empty string to a.
+              // In this case the number of transformations equals to size of a substring.
+              for (let i = 0; i <= a.length; i += 1) {
+                distanceMatrix[0][i] = i;
+              }
+            
+              // Fill the first column of the matrix.
+              // If this is first column then we're transforming empty string to b.
+              // In this case the number of transformations equals to size of b substring.
+              for (let j = 0; j <= b.length; j += 1) {
+                distanceMatrix[j][0] = j;
+              }
+            
+              for (let j = 1; j <= b.length; j += 1) {
+                for (let i = 1; i <= a.length; i += 1) {
+                  const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
+                  distanceMatrix[j][i] = Math.min(
+                    distanceMatrix[j][i - 1] + 1, // deletion
+                    distanceMatrix[j - 1][i] + 1, // insertion
+                    distanceMatrix[j - 1][i - 1] + indicator, // substitution
+                  );
+                }
+              }
+            
+              window.alG = (distanceMatrix[b.length][a.length])/b.length;
+            }
 
 
          function finalAnswer() {
@@ -294,6 +334,8 @@ var textBox = document.getElementById("inputForm");
           document.getElementById("score").innerHTML = ""  
           document.getElementById('inputForm').value = ""
           window.wasCorrect = ""
+          window.alG = ""
+          
 
           initRun()
           
