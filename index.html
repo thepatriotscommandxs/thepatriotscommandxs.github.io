@@ -11,7 +11,7 @@ button.ADD {
 }
 h1   {color: rgb(3, 45, 22);}
 
-h2 , div.Dum,div.Log, button,label {
+h2 , p, button,label {
   text-align: center;
 }
 
@@ -42,11 +42,11 @@ button {
       <p id="Prompt" style="padding-left: 10%; padding-right: 10%;"></p>
     </div>
 
-    <div class = "Dum">
+    <div>
       <p style="color: red;" id="DUMMY"></p>
 
     </div>
-    <div class = "Log">
+    <div>
       <p style="color: red;" id="Logger"></p>
 
     </div>
@@ -70,7 +70,7 @@ button {
       <button class="ADD" onclick="addCount()"  id="button" type="button" >
         <img src="https://raw.githubusercontent.com/thepatriotscommandxs/thepatriotscommandxs.github.io/main/submit.png" height="100" width="400">
       </button>
-      <br> <br> <br>
+      <br> <br> 
 
       <button class="RES" style="text-align:center" onclick="reset()" id="reset", type="button">
         Next Question
@@ -80,8 +80,6 @@ button {
 
 
 
-    <br>
-    <br>
     <br>
     <div>
       <h3 style="color: rgb(168, 77, 8); text-align: center; font-size: x-large;" id="score"></h3>
@@ -237,7 +235,7 @@ var textBox = document.getElementById("inputForm");
           } 
           else if(window.Guess.toLowerCase() == "to") {
             window.Guess = "XXXXXXXXXXX"
-          } else if(window.Guess.length<=2) {
+          } else if(window.Guess.length<=2 & window.Ans.length>=2) {
           window.Guess = "XXXXXXXXXXX"
           }
           else {
