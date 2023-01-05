@@ -11,7 +11,7 @@ button.ADD {
 }
 h1   {color: rgb(3, 45, 22);}
 
-h2 , p, button,label {
+h2 ,  button,label {
   text-align: center;
 }
 
@@ -38,15 +38,15 @@ button {
   <body>
     <h1 style="text-align:center;font-size: 50px;">Scholarle</h1>
 
-    <div class = "P">
+    <div>
       <p id="Prompt" style="padding-left: 10%; padding-right: 10%;"></p>
     </div>
 
-    <div>
+    <div style="text-align: center;">
       <p style="color: red;" id="DUMMY"></p>
 
     </div>
-    <div>
+    <div style="text-align: center;">
       <p style="color: red;" id="Logger"></p>
 
     </div>
@@ -324,6 +324,7 @@ var textBox = document.getElementById("inputForm");
             document.getElementById('DUMMY').innerHTML = "Incorrect"
             document.getElementById('Logger').innerHTML = "The Answer is ==> " + window.Ans
             document.getElementById('inputForm').value = ""
+            window.count = 0;
 
 
 
@@ -346,6 +347,9 @@ var textBox = document.getElementById("inputForm");
          	if (window.wasCorrect == "True") {
          		document.getElementById('Prompt').innerHTML = "Congrats!"
 
+            document.getElementById('Logger').innerHTML = "The Answer was ==> " + window.Ans
+            document.getElementById('inputForm').value = ""
+
              if(window.count<=1){
               window.score += 15;
 
@@ -360,6 +364,7 @@ var textBox = document.getElementById("inputForm");
               
             document.getElementById("button").disabled = true
             document.getElementById('score').innerHTML = "Your Score: "+window.score
+            window.count = 0;
 
             document.getElementById("reset").style.visibility= "visible" 
 
